@@ -21,6 +21,7 @@ package springfox.documentation.spring.web.readers.operation;
 
 import com.fasterxml.classmate.ResolvedType;
 import com.fasterxml.classmate.TypeResolver;
+import com.tss.basic.site.argumentresolver.InternalJsonParam;
 import com.tss.basic.site.argumentresolver.JsonParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,7 +88,8 @@ public class OperationModelsProvider implements OperationModelsProviderPlugin {
     for (ResolvedMethodParameter parameterType : parameterTypes) {
         if (parameterType.hasParameterAnnotation(RequestBody.class)
             || parameterType.hasParameterAnnotation(RequestPart.class)
-            || parameterType.hasParameterAnnotation(JsonParam.class)) {
+            || parameterType.hasParameterAnnotation(JsonParam.class)
+            || parameterType.hasParameterAnnotation(InternalJsonParam.class)) {
           ResolvedType modelType = context.alternateFor(parameterType.getParameterType());
           LOG.debug("Adding input parameter of type {}", resolvedTypeSignature(modelType).or("<null>"));
           context.operationModelsBuilder().addInputParam(modelType);

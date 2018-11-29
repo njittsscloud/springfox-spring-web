@@ -22,6 +22,7 @@ package springfox.documentation.spring.web.readers.operation;
 import com.fasterxml.classmate.ResolvedType;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
+import com.tss.basic.site.argumentresolver.InternalJsonParam;
 import com.tss.basic.site.argumentresolver.JsonParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
@@ -153,6 +154,7 @@ public class OperationParameterReader implements OperationBuilderPlugin {
     private boolean shouldExpand(final ResolvedMethodParameter parameter, ResolvedType resolvedParamType) {
         return !parameter.hasParameterAnnotation(RequestBody.class)
                 && !parameter.hasParameterAnnotation(JsonParam.class)
+                && !parameter.hasParameterAnnotation(InternalJsonParam.class)
                 && !parameter.hasParameterAnnotation(RequestPart.class)
                 && !parameter.hasParameterAnnotation(RequestParam.class)
                 && !parameter.hasParameterAnnotation(PathVariable.class)

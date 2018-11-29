@@ -21,6 +21,7 @@ package springfox.documentation.spring.web.readers.parameter;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
+import com.tss.basic.site.argumentresolver.InternalJsonParam;
 import com.tss.basic.site.argumentresolver.JsonParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
@@ -89,6 +90,11 @@ public class ParameterRequiredReader implements ParameterBuilderPlugin {
         Optional<JsonParam> jsonParam = methodParameter.findAnnotation(JsonParam.class);
         if (jsonParam.isPresent()) {
             requiredSet.add(!optional && jsonParam.get().required());
+        }
+
+        Optional<InternalJsonParam> internalJsonParam = methodParameter.findAnnotation(InternalJsonParam.class);
+        if (internalJsonParam.isPresent()) {
+            requiredSet.add(!optional && internalJsonParam.get().required());
         }
 
         Optional<RequestPart> requestPart = methodParameter.findAnnotation(RequestPart.class);
